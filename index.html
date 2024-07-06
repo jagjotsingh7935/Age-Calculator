@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-k6RqeWeciBtDWZppKuo2sHQ2Cj65N+Y2zN1JqUZBBnBuj39vQO9z2zN3fq+s6v7g5n0FLYmi1z6HOshK1h1pHQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Age Calculator</h1>
+        <label for="birthdate">Enter your birthdate:</label>
+        <input type="date" id="birthdate">
+        <button onclick="calculateAge()">Calculate Age</button>
+        <div id="result" class="result-box"></div>
+    </div>
+
+    <script>
+        function calculateAge() {
+            const birthdate = document.getElementById('birthdate').value;
+            if (!birthdate) {
+                document.getElementById('result').innerHTML = 'Please enter your birthdate.';
+                document.getElementById('result').classList.add('active');
+                return;
+            }
+
+            const birthDateage = new Date(birthdate);
+            const currentDate = new Date();
+
+            let years = currentDate.getFullYear() - birthDateage.getFullYear();
+            let months = currentDate.getMonth() - birthDateage.getMonth();
+            let days = currentDate.getDate() - birthDateage.getDate();
+
+            if (days < 0) {
+                months--;
+                days += new Date(currentDate.getFullYear(), currentDate.getMonth(), 0).getDate();
+            }
+
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+
+            document.getElementById('result').innerHTML = `Your age is ${years} years, ${months} months, and ${days} days.`;
+            document.getElementById('result').classList.add('active');
+        }
+    </script>
+</body>
+
+</html>
